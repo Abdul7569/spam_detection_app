@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify,send_from_directory
 from flask_cors import CORS
 import pickle
 import os
@@ -6,7 +6,7 @@ import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 # Enable CORS
-app = Flask(__name__)
+app = Flask(__name__, static_folder="build", static_url_path="/")
 CORS(app)
 
 # Load the saved model and vectorizer
@@ -19,7 +19,7 @@ with open(vec_path, "rb") as vec_file:
     tfidf = pickle.load(vec_file)
 @app.route('/')
 def home():
-    return 'Spam Detection App is Live!'
+    return send_from_directory(app.static_folder, "index.html")
 
 @app.route('/predict', methods=['POST'])
 def predict():
