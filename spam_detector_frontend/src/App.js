@@ -25,7 +25,7 @@ function App() {
         { text: "Go until jurong point, crazy.. Available only in bugis n great world la e buffet... Cine there got amore wat...", label: "ham" },
         { text: "Ok lar... Joking wif u oni...", label: "ham" },
         { text: "Free entry in 2 a wkly comp to win FA Cup final tkts 21st May 2005. Text FA to 87121 to receive entry question(std txt rate)T&C's apply 08452810075over18's", label: "spam" },
-        { text: "SIX chances to win CASH! From 100 to 20,000 pounds txt> CSH11 and send to 87575. Cost 150p/day, 6days, 16+ TsandCs apply Reply HL 4 info",label:"spam"	 },
+        { text: "SIX chances to win CASH! From 100 to 20,000 pounds txt> CSH11 and send to 87575. Cost 150p/day, 6days, 16+ TsandCs apply Reply HL 4 info", label: "spam" },
         { text: "-U dun say so early hor... U c already then say...", label: "ham" },
     ]);
 
@@ -41,11 +41,14 @@ function App() {
 
         setLoading(true);
         try {
-            const response = await axios.post("http://localhost:5000/predict", {
-                message,
+            const API_BASE_URL = process.env.REACT_APP_API_URL; // Ensure you set this in your .env file
+            const response = await axios.post(`${API_BASE_URL}/predict`, {
+                message, // Send the message as part of the body
             });
+
             setPrediction(response.data.prediction);
 
+            // Update the inbox or spam messages based on the prediction
             if (response.data.prediction === "spam") {
                 setSpamMessages([...spamMessages, message]);
             } else {

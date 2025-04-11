@@ -17,9 +17,9 @@ with open(model_path, "rb") as model_file:
 vec_path = os.path.join(os.path.dirname(__file__), 'vectorizer.pkl')
 with open(vec_path, "rb") as vec_file:
     tfidf = pickle.load(vec_file)
-@app.route("/")
-def home():
-    return render_template("index.html")
+# @app.route("/")
+# def home():
+#     return render_template("index.html")
 
 @app.route('/predict', methods=['POST'])
 def predict():
