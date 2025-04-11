@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import pickle
+import os
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 
@@ -9,10 +10,12 @@ app = Flask(__name__)
 CORS(app)
 
 # Load the saved model and vectorizer
-with open("spam_model.pkl", "rb") as model_file:
+model_path = os.path.join(os.path.dirname(__file__), 'spam_model.pkl')
+with open(model_path, "rb") as model_file:
     model_nb = pickle.load(model_file)
 
-with open("vectorizer.pkl", "rb") as vec_file:
+vec_path = os.path.join(os.path.dirname(__file__), 'vectorizer.pkl')
+with open(vec_path, "rb") as vec_file:
     tfidf = pickle.load(vec_file)
 
 @app.route('/predict', methods=['POST'])
