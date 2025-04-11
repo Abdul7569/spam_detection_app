@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify,send_from_directory
+from flask import Flask, request, jsonify,render_template
 from flask_cors import CORS
 import pickle
 import os
@@ -17,9 +17,9 @@ with open(model_path, "rb") as model_file:
 vec_path = os.path.join(os.path.dirname(__file__), 'vectorizer.pkl')
 with open(vec_path, "rb") as vec_file:
     tfidf = pickle.load(vec_file)
-@app.route('/')
+@app.route("/")
 def home():
-    return send_from_directory(app.static_folder, "index.html")
+    return render_template("index.html")
 
 @app.route('/predict', methods=['POST'])
 def predict():
