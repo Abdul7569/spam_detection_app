@@ -42,9 +42,10 @@ function App() {
         setLoading(true);
         try {
             const API_BASE_URL = process.env.REACT_APP_API_URL; // Ensure you set this in your .env file
-            const response = await axios.post(`${API_BASE_URL}/predict`, {
-                message, // Send the message as part of the body
-            });
+            console.log("Hitting:", `${API_BASE_URL}/predict`);
+
+            const response = await axios.post(`${API_BASE_URL}/predict`, {message,} // Send the message as part of the body
+            );
 
             setPrediction(response.data.prediction);
 
