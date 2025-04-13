@@ -20,6 +20,9 @@ with open(vec_path, "rb") as vec_file:
 # @app.route("/")
 # def home():
 #     return render_template("index.html")
+@app.route('/')
+def index():
+    return "Spam Detection API is running!"
 
 @app.route('/predict', methods=['POST'])
 def predict():
